@@ -92,6 +92,10 @@ export const useTodoStore = defineStore('todo', () => {
     filterCategory.value = category;
   }
 
+  function setSortOption(option: SortOptions) {
+    sortOption.value = option;
+  }
+
   return {
     filterCategory,
     sortOption,
@@ -102,6 +106,7 @@ export const useTodoStore = defineStore('todo', () => {
     removeCompleted,
     updateTodoStatus,
     setFilterCategory,
+    setSortOption,
   };
 });
 
