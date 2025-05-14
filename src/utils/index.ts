@@ -41,3 +41,10 @@ export function parseDate(date: string) {
   return new Date(2000 + year, month - 1, day);
 };
 
+export function compareByDate<T extends { date: string }>(a: T, b: T): number {
+  return parseDate(a.date).getTime() - parseDate(b.date).getTime();
+}
+
+export function compareByText<T extends { text: string }>(a: T, b: T): number {
+  return a.text.localeCompare(b.text);
+}
