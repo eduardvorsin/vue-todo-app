@@ -83,3 +83,19 @@ export async function deleteCompletedTodos(): Promise<ITodo[]> {
   }
 };
 
+export async function updateTodo(id: string, options: Partial<Omit<ITodo, 'id'>>): Promise<ITodo> {
+  const url = `${API_ENDPOINTS.TODOS}/${id}`;
+  try {
+    const response = await api.patch<ITodo>(url, {
+      text: options.text,
+      status: options.status,
+    });
+
+    await randomDelay(100, 500);
+
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
