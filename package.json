@@ -4,13 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "vite",
-    "server": "json-server ./server/db.json --port 3001",
-    "dev": "concurrently \"npm run start\" \"npm run server\"",
+    "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "build-only": "vite build",
+    "deploy": "gh-pages -d dist",
     "type-check": "vue-tsc --build",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
@@ -40,6 +39,7 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.22.0",
     "eslint-plugin-vue": "~10.0.0",
+    "gh-pages": "^6.3.0",
     "jiti": "^2.4.2",
     "jsdom": "^26.0.0",
     "npm-run-all2": "^7.0.2",
