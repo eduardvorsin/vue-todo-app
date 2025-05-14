@@ -35,3 +35,9 @@ export function formatErrorForUser<T = unknown, D = unknown>({
 
   return errorMessage;
 };
+
+export function parseDate(date: string) {
+  const [day, month, year] = date.split('.').map(Number);
+  return new Date(2000 + year, month - 1, day);
+};
+
