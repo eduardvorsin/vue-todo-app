@@ -56,3 +56,17 @@ export async function createTodo(text: string): Promise<ITodo> {
   }
 };
 
+export async function deleteTodo(id: string): Promise<ITodo> {
+  const url = `${API_ENDPOINTS.TODOS}/${id}`;
+  try {
+    const response = await api.delete<ITodo>(url);
+
+    await randomDelay(100, 500);
+
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
