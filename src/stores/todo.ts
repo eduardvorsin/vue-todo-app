@@ -1,6 +1,8 @@
 
 
-import type { ITodo } from "@/services/api";
+import { fetchTodos, type ITodo } from "@/services/api";
+import { formatErrorForUser } from "@/utils";
+import axios from "axios";
 import { defineStore } from "pinia";
 import { ref } from "vue";
 
@@ -24,10 +26,24 @@ export const useTodoStore = defineStore('todo', () => {
   const filterCategory = ref<FilterCategories>(FILTERS.ALL);
   const sortOption = ref<SortOptions>(SORT_OPTIONS.NAME);
 
+  async function getTodos() {
+    try {
+      const data = await fetchTodos();
+      todos.value = data;
+      error.value = '';
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        error.value = formatErrorForUser<ITodo>(err);
+      }
+    }
+  }
+
+
   return {
     filterCategory,
     sortOption,
     error,
+    getTodos
   };
 });
 
