@@ -88,6 +88,10 @@ export const useTodoStore = defineStore('todo', () => {
     }
   }
 
+  function setFilterCategory(category: FilterCategories) {
+    filterCategory.value = category;
+  }
+
   return {
     filterCategory,
     sortOption,
@@ -96,7 +100,8 @@ export const useTodoStore = defineStore('todo', () => {
     addTodo,
     removeTodo,
     removeCompleted,
-    updateTodoStatus
+    updateTodoStatus,
+    setFilterCategory,
   };
 });
 
