@@ -96,6 +96,13 @@ export const useTodoStore = defineStore('todo', () => {
     sortOption.value = option;
   }
 
+  function $reset() {
+    todos.value = [];
+    filterCategory.value = FILTERS.ALL;
+    sortOption.value = SORT_OPTIONS.NAME;
+    error.value = '';
+  }
+
   return {
     filterCategory,
     sortOption,
@@ -107,6 +114,7 @@ export const useTodoStore = defineStore('todo', () => {
     updateTodoStatus,
     setFilterCategory,
     setSortOption,
+    $reset,
   };
 });
 
