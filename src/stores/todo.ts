@@ -1,10 +1,10 @@
 
 
 import { createTodo, deleteCompletedTodos, deleteTodo, fetchTodos, updateTodo, type ITodo } from "@/services/api";
-import { formatErrorForUser } from "@/utils";
+import { compareByDate, compareByText, formatErrorForUser } from "@/utils";
 import axios from "axios";
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 type FilterCategories = 'all' | 'active' | 'completed';
 type SortOptions = 'date' | 'name';
@@ -103,6 +103,16 @@ export const useTodoStore = defineStore('todo', () => {
     error.value = '';
   }
 
+  const visibleTodos = computed(() => {
+    let resultTodos = [...todos.value];
+    if (filterCategory.value !== FILTERS.ALL) {
+      resultTodos = todos.value.filter(todo => todo.status === filterCategory.value);
+    }
+
+    const sortMethod = sortOption.value === 'name' ? compareByText : compareByDate;
+    return resultTodos.sort(sortMethod);
+  });
+
   return {
     filterCategory,
     sortOption,
@@ -115,6 +125,7 @@ export const useTodoStore = defineStore('todo', () => {
     setFilterCategory,
     setSortOption,
     $reset,
+    visibleTodos,
   };
 });
 
