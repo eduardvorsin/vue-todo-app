@@ -1,6 +1,6 @@
 
 
-import { fetchTodos, type ITodo } from "@/services/api";
+import { createTodo, fetchTodos, type ITodo } from "@/services/api";
 import { formatErrorForUser } from "@/utils";
 import axios from "axios";
 import { defineStore } from "pinia";
@@ -38,12 +38,24 @@ export const useTodoStore = defineStore('todo', () => {
     }
   }
 
+  async function addTodo(text: string) {
+    try {
+      const newTodo = await createTodo(text);
+      todos.value.push(newTodo);
+      error.value = '';
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        error.value = formatErrorForUser<ITodo>(err);
+      }
+    }
+  }
 
   return {
     filterCategory,
     sortOption,
     error,
-    getTodos
+    getTodos,
+    addTodo
   };
 });
 
