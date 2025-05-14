@@ -69,4 +69,17 @@ export async function deleteTodo(id: string): Promise<ITodo> {
   }
 };
 
+export async function deleteCompletedTodos(): Promise<ITodo[]> {
+  try {
+    const completedTodos = await fetchTodos({ status: 'completed' });
+    const deleteRequests = completedTodos.map(({ id }) => deleteTodo(id));
+    const data = await Promise.all(deleteRequests);
+
+    await randomDelay(100, 500);
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
 
