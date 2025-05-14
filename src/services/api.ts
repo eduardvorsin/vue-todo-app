@@ -37,3 +37,22 @@ export async function fetchTodos(options?: {
   }
 };
 
+export async function createTodo(text: string): Promise<ITodo> {
+  const newTodo: ITodo = {
+    id: crypto.randomUUID(),
+    text,
+    status: 'active',
+    date: new Date().toLocaleDateString('ru-RU'),
+  };
+
+  try {
+    const response = await api.post<ITodo>(API_ENDPOINTS.TODOS, newTodo);
+
+    await randomDelay(100, 500);
+
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
